@@ -1,0 +1,25 @@
+:root {
+  --main-color: #ff2d88;
+  --main-color-700: #fb187b;
+  --main-color-500: #fd4d99;
+  --main-color-300: #fb7db3;
+  --main-color-100: #f7c3da;
+
+  --secondary-color: #007bff;
+
+  --text-color: #333;
+  --accent-text-color: #101010;
+  --border-color: #a9a9a9;
+
+  --body-bg: #efefef;
+  --heading-font-size: 2rem;
+
+  --body-font-size: 1rem;
+
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
