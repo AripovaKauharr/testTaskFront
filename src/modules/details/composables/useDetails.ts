@@ -37,7 +37,8 @@ console.log(filters);
     { key: 'start_time', label: 'Время начала' },
     { key: 'duration', label: 'Длительность' },
     { key: 'status', label: 'Статус' },
-    { key: 'agent_id', label: 'Категория' }
+    { key: 'category', label: 'Категория' },
+    { key: 'agent_id', label: 'Оператор' }
   ];
 
   const loadCalls = async (params: Partial<CallFilterParams> = {}) => {

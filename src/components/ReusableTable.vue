@@ -27,23 +27,20 @@
     <div v-if="error" class="error">{{ error }}</div>
     
     <div v-if="!loading && !error && pagination" class="pagination">
-      <button 
+      <Button 
+        text="<"  
         @click="changePage(+currentPage - 1)" 
         :disabled="currentPage === 1"
-        class="pagination-button"
-      >
-        Назад
-      </button>
+      />
+
       <span class="page-info">
-        Страница {{ currentPage }} из {{ totalPages }}
+        {{ currentPage }} из {{ totalPages }}
       </span>
-      <button 
+      <Button 
+        text=">"  
         @click="changePage(+currentPage + 1)" 
         :disabled="currentPage === totalPages"
-        class="pagination-button"
-      >
-        Вперед
-      </button>
+      />
     </div>
   </div>
 </template>
@@ -51,6 +48,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue';
 import { Pages } from '../modules/details/types/details.types';
+import Button from './Button.vue';
 
 interface Column {
   key: string;
@@ -59,6 +57,9 @@ interface Column {
 
 export default defineComponent({
   name: 'ReusableTable',
+  components: {
+    Button
+  },
   props: {
     columns: {
       type: Array as PropType<Column[]>,
@@ -104,14 +105,14 @@ export default defineComponent({
 .table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
 }
 th, td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #eee;
 }
 th {
-  background-color: #f5f5f5;
   font-weight: 500;
 }
 .loading, .error {

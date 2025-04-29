@@ -25,7 +25,7 @@ export function usePieChart(canvas: HTMLCanvasElement | null, props: PieChartPro
             callbacks: {
               label: (context) => {
                 const label = context.label || '';
-                const value = context.parsed; // Используем parsed вместо raw
+                const value = context.parsed;
                 const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
                 const percentage = Math.round((value / total) * 100);
                 return `${label}: ${value} (${percentage}%)`;

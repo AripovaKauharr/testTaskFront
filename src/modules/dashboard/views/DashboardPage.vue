@@ -166,7 +166,7 @@ watchEffect(() => {
     c.category.charAt(0).toUpperCase() + c.category.slice(1)
   );
   const data = analyticsData.value.avgDurationByCategory.map(c => 
-    (c.averageDuration / 60).toFixed(2) // минуты
+    (c.averageDuration / 60).toFixed(2)
   );
 
   new Chart(ctx, {

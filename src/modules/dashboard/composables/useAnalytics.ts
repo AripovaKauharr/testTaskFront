@@ -40,7 +40,7 @@ export function useAnalytics () {
           { id: 3, title: "Пропущенные звонки", value: `${response.missedPercentage}%` }
         ];
         categoryAnalytics.value = response.categoryDistribution.map(item => ({
-          label: item.category.charAt(0).toUpperCase() + item.category.slice(1), // Делаем первую букву заглавной
+          label: item.category.charAt(0).toUpperCase() + item.category.slice(1),
           value: item.percentage
         }))
       }

@@ -2,9 +2,9 @@ import axios from 'axios';
 import type { User } from '../types/user.types';
 import api from '../../../api';
 
-export const fetchUsers = async (): Promise<User[]> => {
+export const fetchUsers = async (search: string): Promise<User[]> => {
   try {
-    const response = await api.get('/users');
+    const response = await api.get('/users', {params: {search}});
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

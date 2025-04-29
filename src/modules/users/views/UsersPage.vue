@@ -2,6 +2,7 @@
   <div>
     <div class="action-block">
       <Input
+        v-model="searchQuery"
         placeholder="Поиск..."
       />
       <Button
@@ -101,7 +102,8 @@ export default defineComponent({
       openModal,
       closeModal,
       onEdit,
-      isEditMode
+      isEditMode,
+      searchQuery
     } =useUser()
     return {
       columns,
@@ -115,7 +117,8 @@ export default defineComponent({
       openModal,
       closeModal,
       onEdit,
-      isEditMode
+      isEditMode,
+      searchQuery
     };
   }
 });

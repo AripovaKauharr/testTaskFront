@@ -1,10 +1,11 @@
-  import { computed, onMounted, ref } from "vue";
+  import { computed, onMounted, ref, watch } from "vue";
   import { createUser, deleteUser, fetchUsers, updateUser } from "../service";
   import { User } from "../types/user.types";
-
+  import { debounce } from "lodash-es";
   export function useUser () {
     const isModalOpen = ref(false);
     const users = ref<any[]>([]);
+    const searchQuery = ref('')
     const isLoading = ref(false);
     const error = ref<string | null>(null);
     const user = ref<User>({
@@ -35,11 +36,10 @@
       { key: 'role', label: 'Роль' },
       { key: 'actions', label: 'Действия' },
     ];
-
     const loadUsers = async () => {
       try {
         isLoading.value = true;
-        users.value = await fetchUsers();
+        users.value = await fetchUsers(searchQuery.value);
       } catch (err) {
         error.value = 'Ошибка при загрузке пользователей';
         console.error(err);
@@ -47,7 +47,15 @@
         isLoading.value = false;
       }
     };
-
+  
+    const debouncedSearch = debounce(async (query: string) => {
+      await loadUsers();
+    }, 300);
+  
+    watch(searchQuery, (newQuery) => {
+      debouncedSearch(newQuery);
+    });
+  
     const handleCreateUser = async (userData: User) => {
       try {
         const {id, ...user} = userData
@@ -96,5 +104,6 @@
       onEdit,
       handleUserSubmit,
       isEditMode,
+      searchQuery
     }
   };

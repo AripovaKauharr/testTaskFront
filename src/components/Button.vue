@@ -44,11 +44,12 @@ export default defineComponent({
 
 <style scoped>
 .btn {
-  padding: 10px 20px;
+  padding: 15px 20px;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 1rem;
   cursor: pointer;
+  height: fit-content;
   transition: background-color 0.3s;
 }
 

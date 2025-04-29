@@ -87,11 +87,7 @@ label {
 }
 
 select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  background-color: white;
+  padding: 15px 35px 15px 15px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -100,12 +96,16 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.7rem top 50%;
   background-size: 0.65rem auto;
+
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0px 0px 8px 0px #ececec;
 }
 
 select:focus {
   outline: none;
-  border-color: #42b983;
-  box-shadow: 0 0 0 2px rgba(66, 185, 131, 0.2);
+  box-shadow: 0 0 4px 2px var(--main-color-300);
 }
 
 select:disabled {

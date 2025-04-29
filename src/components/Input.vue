@@ -10,7 +10,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       @blur="$emit('blur')"
       @focus="$emit('focus')"
-      @change="$emit('change')"
+      @change="$emit('change', $event)"
     />
     <span v-if="error" class="error-message">{{ error }}</span>
   </div>
@@ -58,7 +58,6 @@ export default {
 .input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
 }
 
 label {
@@ -67,16 +66,16 @@ label {
 }
 
 input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
+  box-shadow: 0px 0px 8px 0px #ececec;
 }
 
 input:focus {
   outline: none;
-  border-color: #42b983;
-  box-shadow: 0 0 0 2px rgba(66, 185, 131, 0.2);
+  box-shadow: 0 0 4px 2px var(--main-color-300);
 }
 
 input:disabled {
