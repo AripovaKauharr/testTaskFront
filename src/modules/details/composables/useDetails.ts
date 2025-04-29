@@ -23,7 +23,6 @@ export function useDetails() {
     page: 1,    
     limit: 10     
   });
-console.log(filters);
 
   const pagination = ref<Pages>({
     page: 1,
@@ -67,7 +66,6 @@ console.log(filters);
   const handlePageChange = (page: number) => {
     if(!(page <= calls.value.lastPage && page < 1))
       filters.value.page = page;
-      console.log(page);
       
       loadCalls();
   };
