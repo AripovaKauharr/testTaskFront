@@ -3,7 +3,7 @@ import DefaultLayout from '../layouts/DefaultLayout.vue';
 import LoginPage from '../modules/auth/views/LoginPage.vue';
 import DashboardPage from '../modules/dashboard/views/DashboardPage.vue';
 import DetailsPage from '../modules/details/views/DetailsPage.vue';
-import SettingsPage from '../modules/settings/views/SettingsPage.vue';
+import UsersPage from '../modules/users/views/UsersPage.vue';
 import { getToken } from '../modules/auth/service';
 
 const routes: RouteRecordRaw[]  = [
@@ -26,8 +26,8 @@ const routes: RouteRecordRaw[]  = [
         meta: { requiresAuth: true }
       },
       {
-        path: 'settings',
-        component: SettingsPage,
+        path: 'users',
+        component: UsersPage,
         meta: { requiresAuth: true }
       }
     ]

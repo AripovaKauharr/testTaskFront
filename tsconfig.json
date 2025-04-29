@@ -18,7 +18,3 @@
     "src/**/*.vue"
   ]
 }
-// "compilerOptions": {
-//   "lib": ["dom", "esnext"],
-//   "types": ["node"]
-// }

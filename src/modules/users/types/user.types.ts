@@ -1,9 +1,5 @@
 export interface User {
-  userName: string
-  email: string
-  role: string
-}
-export interface CreateUser {
+  id?: number
   userName: string
   password: string
   email: string

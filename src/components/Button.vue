@@ -4,8 +4,10 @@
     :disabled="isLoading"
     @click="handleClick"
   >
-    <span v-if="isLoading">Загрузка...</span>
-    <span v-else>{{ text }}</span>
+  <span v-if="isLoading">Загрузка...</span>
+    <span v-else>
+      <slot>{{ text }}</slot>
+    </span>
   </button>
 </template>
 
@@ -17,7 +19,7 @@ export default defineComponent({
   props: {
     text: {
       type: String,
-      required: true,
+      required: false,
     },
     isLoading: {
       type: Boolean,
@@ -52,6 +54,18 @@ export default defineComponent({
 
 .primary {
   background-color: var(--main-color);
+  color: white;
+}
+.outlined{
+  border: 1px solid;
+  border-color: var(--main-color);
+  background: white;
+  color: var(--main-color-500);
+}
+.outlined:hover{
+  border: 1px solid;
+  border-color: var(--main-color);
+  background: var(--main-color-500);
   color: white;
 }
 

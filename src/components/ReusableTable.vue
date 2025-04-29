@@ -1,22 +1,31 @@
 <template>
-  <table class="reusable-table">
-    <thead>
-      <tr>
-        <th v-for="column in columns" :key="column.key">
-          {{ column.label }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
-        <td v-for="(column, colIndex) in columns" :key="colIndex">
-          <p>
-            {{ row[column.key] }}
-          </p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th v-for="column in columns" :key="column.key">
+            {{ column.label }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
+          <td v-for="column in columns" :key="column.key">
+            <slot 
+              :name="`cell-${column.key}`" 
+              :value="row[column.key]" 
+              :row="row"
+              :column="column"
+            >
+              {{ row[column.key] }}
+            </slot>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="loading" class="loading">Загрузка...</div>
+    <div v-if="error" class="error">{{ error }}</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -35,32 +44,34 @@ export default defineComponent({
       required: true
     },
     rows: {
-      type: Array as PropType<Array<Record<string, any>>>,
-      required: true
-    }
-  },
-  setup() {},
+      type: Array as PropType<any[]>,
+      default: () => []
+    },
+    loading: Boolean,
+    error: String
+  }
 });
 </script>
 
 <style scoped>
-.reusable-table {
-  border-radius: 10px;
-  background-color: white;
+.table-container {
+  overflow-x: auto;
+}
+.table {
   width: 100%;
   border-collapse: collapse;
 }
-
-.reusable-table th,
-.reusable-table td {
-  padding: 12px;
+th, td {
+  padding: 12px 16px;
   text-align: left;
-  border: 1px solid #ddd;
-  border-left: none;
-  border-right: none;
+  border-bottom: 1px solid #eee;
 }
-
-.reusable-table th {
-  border-top: none;
+th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+}
+.loading, .error {
+  padding: 16px;
+  text-align: center;
 }
 </style>

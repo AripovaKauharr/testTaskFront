@@ -32,19 +32,12 @@ export default {
       sidebarItems: [
         {id: 1, name: 'Дашборд', link: '/dashboard' },
         {id: 2, name: 'Детализация', link: '/details' },
-        {id: 3, name: 'Настройки', link: '/settings' },
+        {id: 3, name: 'Пользователи', link: '/users' },
       ]
     }
   },
   methods: {
     isActive(index: number) {
-      console.log(this.$route.path);
-      console.log(this.sidebarItems[index].link);
-      console.log(this.$route.path === this.sidebarItems[index].link);
-      console.log('====================================');
-      console.log();
-      console.log('====================================');
-      
       return this.$route.path === this.sidebarItems[index].link;
     }
   }
@@ -56,7 +49,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 header {

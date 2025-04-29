@@ -1,14 +1,10 @@
 import axios from 'axios';
-import type { GetCalls, CallFilterParams } from '../types/details.types';
 import api from '../../../api';
+import { AnalyticsFilters, AnalyticsData } from '../types/analytics.type';
 
-export const fetchCalls = async (params?: CallFilterParams): Promise<GetCalls> => {
+export const getAnalytics = async (filters: AnalyticsFilters): Promise<AnalyticsData> => {
   try {
-    const response = await api.get('/calls', {
-      params: {
-        ...params
-      }
-    });
+    const response = await api.get('/analytics', {params: filters});
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

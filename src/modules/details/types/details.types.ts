@@ -11,3 +11,11 @@ export interface Pages {
 export interface GetCalls extends Pages{
   data: Calls[]
 }
+
+export interface CallFilterParams{
+  from?: string;
+  to?: string;
+  category?: string;
+  status?: string;
+  agentId?: string;
+}

@@ -10,6 +10,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       @blur="$emit('blur')"
       @focus="$emit('focus')"
+      @change="$emit('change')"
     />
     <span v-if="error" class="error-message">{{ error }}</span>
   </div>
@@ -49,7 +50,7 @@ export default {
       default: () => `input-${Math.random().toString(36).substr(2, 9)}`
     }
   },
-  emits: ['update:modelValue', 'blur', 'focus']
+  emits: ['update:modelValue', 'blur', 'focus', 'change']
 }
 </script>
 

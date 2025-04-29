@@ -1,4 +1,3 @@
-<!-- components/CreateUserForm.vue -->
 <template>
   <form @submit.prevent="submit">
       <Input
@@ -22,17 +21,15 @@
         label="Роль"
         placeholder="Введите роль"
       />
-      <!-- <div v-if="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div> -->
     <slot name="footer"></slot>
   </form>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import { CreateUser } from "../types/user.types";
+import { User } from "../types/user.types";
 import Input from '../../../components/Input.vue';
+import { watch } from 'vue';
 
 export default defineComponent({
   name: 'CreateUserForm',
@@ -41,7 +38,7 @@ export default defineComponent({
   },
   props: {
     initialData: {
-      type: Object as () => CreateUser,
+      type: Object as () => User,
       default: () => ({
         userName: '',
         role: 'USER',
@@ -54,15 +51,23 @@ export default defineComponent({
   setup(props, { emit }) {
     const form = reactive({ ...props.initialData });
 
+    watch(
+      () => props.initialData,
+      (newData) => {
+        Object.assign(form, newData);
+      },
+      { deep: true }
+    );
+
     const submit = () => {
-      emit('submit', form);
+      emit('submit', { ...form });
     };
 
     return {
       form,
-      submit
+      submit,
     };
-  }
+  },
 });
 </script>
 
