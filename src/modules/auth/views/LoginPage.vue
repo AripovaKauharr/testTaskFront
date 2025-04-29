@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Input from '../../../components/Input.vue';
 import Button from '../../../components/Button.vue';
 import LoginForm from '../components/LoginForm.vue';
 import { useLogin } from '../composables/useLogin';
@@ -24,7 +23,6 @@ import { CreateLoginForm } from '../types/login.types';
 export default defineComponent({
   name: 'LoginPage',
   components: {
-    Input,
     Button,
     LoginForm
   },

@@ -5,6 +5,7 @@ export interface User {
 }
 export interface CreateUser {
   userName: string
+  password: string
   email: string
-  roleId: number 
+  role: string 
 }
