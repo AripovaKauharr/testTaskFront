@@ -35,6 +35,8 @@
       :columns="columns" 
       :rows="calls?.data || []" 
       :loading="isLoading"
+      :pagination="pagination"
+      :onPageChange="handlePageChange"
     >
       <template #cell-status="{ value }">
         <StatusBadge :value="formatCallStatus(value)" :type="value" />
@@ -76,11 +78,9 @@ export default defineComponent({
       filters,
       error,
       updateFilter,
+      pagination,
+      handlePageChange
     } = useDetails()
-  //   const updateDateFilter = (field: 'from' | 'to', value: string) => {
-  //   updateFilter({ [field]: value });
-  // };
-
 
     return {
       columns,
@@ -94,6 +94,8 @@ export default defineComponent({
       categoryOptions,
       statusOptions,
       updateFilter,
+      pagination,
+      handlePageChange
     };
   }
 });

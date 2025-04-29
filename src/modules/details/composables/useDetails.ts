@@ -1,19 +1,34 @@
 import { onMounted, ref, watch } from "vue";
 import { fetchCalls } from "../service";
-import { GetCalls, CallFilterParams } from "../types/details.types";
+import { GetCalls, CallFilterParams, Pages } from "../types/details.types";
 
 export function useDetails() {
-  const calls = ref<GetCalls>();
+  const calls = ref<GetCalls>(
+  {
+    data: [],
+    page: 1, 
+    total: 10,
+    lastPage: 1
+  }  
+  );
   const isLoading = ref(false);
   const error = ref<string | null>(null);
   
-  // Состояния фильтров
-  const filters = ref<CallFilterParams>({
+  const filters = ref<CallFilterParams & { page?: number; limit?: number }>({
     from: undefined,
     to: undefined,
     category: undefined,
     status: undefined,
-    agentId: undefined
+    agentId: undefined,
+    page: 1,    
+    limit: 10     
+  });
+console.log(filters);
+
+  const pagination = ref<Pages>({
+    page: 1,
+    lastPage: 1,
+    total: 0
   });
 
   const columns = [
@@ -25,13 +40,21 @@ export function useDetails() {
     { key: 'agent_id', label: 'Категория' }
   ];
 
-  const loadCalls = async (params: CallFilterParams = {}) => {
+  const loadCalls = async (params: Partial<CallFilterParams> = {}) => {
     try {
       isLoading.value = true;
       const queryParams = { ...filters.value, ...params };
-      console.log(filters.value);
       
-      calls.value = await fetchCalls(queryParams);
+      const response = await fetchCalls(queryParams);
+      const {data, page, total, lastPage} = response
+      calls.value.data = data;
+      
+      if (response) {
+
+        pagination.value = {page, total, lastPage};
+        
+        filters.value.page = pagination.value.page;
+      }
     } catch (err) {
       error.value = 'Ошибка при загрузке звонков';
       console.error(err);
@@ -39,13 +62,27 @@ export function useDetails() {
       isLoading.value = false;
     }
   };
+
+  const handlePageChange = (page: number) => {
+    if(!(page <= calls.value.lastPage && page < 1))
+      filters.value.page = page;
+      console.log(page);
+      
+      loadCalls();
+  };
+
   watch(filters, (newVal) => {
-    loadCalls(newVal);
+    if (newVal.page === undefined || newVal.page === 1) {
+      loadCalls(newVal);
+    }
   }, { deep: true });
 
   const updateFilter = <K extends keyof CallFilterParams>(key: K, value: CallFilterParams[K]) => {
-    filters.value[key] = value;
-    loadCalls();
+    filters.value = {
+      ...filters.value,
+      [key]: value,
+      page: 1
+    };
   };
 
   onMounted(() => {
@@ -58,7 +95,9 @@ export function useDetails() {
     isLoading,
     error,
     filters,
+    pagination,
     updateFilter,
-    loadCalls
+    loadCalls,
+    handlePageChange
   };
 }

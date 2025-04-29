@@ -25,11 +25,32 @@
     </table>
     <div v-if="loading" class="loading">Загрузка...</div>
     <div v-if="error" class="error">{{ error }}</div>
+    
+    <div v-if="!loading && !error && pagination" class="pagination">
+      <button 
+        @click="changePage(+currentPage - 1)" 
+        :disabled="currentPage === 1"
+        class="pagination-button"
+      >
+        Назад
+      </button>
+      <span class="page-info">
+        Страница {{ currentPage }} из {{ totalPages }}
+      </span>
+      <button 
+        @click="changePage(+currentPage + 1)" 
+        :disabled="currentPage === totalPages"
+        class="pagination-button"
+      >
+        Вперед
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, computed } from 'vue';
+import { Pages } from '../modules/details/types/details.types';
 
 interface Column {
   key: string;
@@ -48,7 +69,29 @@ export default defineComponent({
       default: () => []
     },
     loading: Boolean,
-    error: String
+    error: String,
+    pagination: {
+      type: Object as PropType<Pages>,
+      default: null
+    },
+    onPageChange: {
+      type: Function as PropType<(page: number) => void>,
+      default: null
+    }
+  },
+  setup(props) {
+    const currentPage = computed(() => props.pagination?.page || 1);
+    const totalPages = computed(() => props.pagination?.lastPage || 1);
+
+    const changePage = (page: number) => {
+      props.onPageChange(page)
+    };
+
+    return {
+      currentPage,
+      totalPages,
+      changePage
+    };
   }
 });
 </script>
@@ -56,6 +99,7 @@ export default defineComponent({
 <style scoped>
 .table-container {
   overflow-x: auto;
+  margin-bottom: 20px;
 }
 .table {
   width: 100%;
@@ -73,5 +117,26 @@ th {
 .loading, .error {
   padding: 16px;
   text-align: center;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+.pagination-button {
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page-info {
+  font-size: 14px;
 }
 </style>

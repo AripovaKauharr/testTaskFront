@@ -18,4 +18,6 @@ export interface CallFilterParams{
   category?: string;
   status?: string;
   agentId?: string;
+  page?: number
+  limit?: number
 }

@@ -6,7 +6,9 @@ export const fetchCalls = async (params?: CallFilterParams): Promise<GetCalls> =
   try {
     const response = await api.get('/calls', {
       params: {
-        ...params
+        ...params,
+        // page: 1, 
+        // limit: 10,
       }
     });
     return response.data;
