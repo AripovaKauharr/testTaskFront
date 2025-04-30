@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form">
       <Input
         v-model="form.userName"
         label="Имя пользователя"
@@ -72,18 +72,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.form-group {
-  margin-bottom: 16px;
-}
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-}
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>
